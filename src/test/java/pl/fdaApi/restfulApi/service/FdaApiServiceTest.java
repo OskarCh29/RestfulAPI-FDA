@@ -1,14 +1,10 @@
 package pl.fdaApi.restfulApi.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class FdaApiServiceTest {
-
-    @Autowired
-    private WebClient webClient;
 
 
 }

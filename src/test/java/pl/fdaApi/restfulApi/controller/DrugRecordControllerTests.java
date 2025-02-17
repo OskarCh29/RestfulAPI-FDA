@@ -1,5 +1,6 @@
 package pl.fdaApi.restfulApi.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import pl.fdaApi.restfulApi.exception.RecordNotFoundException;
 import pl.fdaApi.restfulApi.model.enitity.DrugRecord;
 import pl.fdaApi.restfulApi.service.DrugRecordService;
@@ -33,8 +33,8 @@ public class DrugRecordControllerTests {
 
     @Test
     void getDrugRecord() throws Exception {
-        String applicationNumber = "123";
         DrugRecord testRecord = new DrugRecord();
+        String applicationNumber = "123";
         testRecord.setApplicationNumber(applicationNumber);
 
         when(drugRecordService.findDrugRecordById(anyString())).thenReturn(testRecord);
@@ -112,11 +112,12 @@ public class DrugRecordControllerTests {
 
     @Test
     void postNewDrugRecord_notValidated() throws Exception {
-        String invalidJson = "{}";
+        DrugRecord missingFieldRecord = new DrugRecord();
+        missingFieldRecord.setApplicationNumber("123");
 
         mockMvc.perform(post("/drug")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(invalidJson))
+                        .content(new ObjectMapper().writeValueAsString(missingFieldRecord)))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(containsString("was not provided")));
     }
