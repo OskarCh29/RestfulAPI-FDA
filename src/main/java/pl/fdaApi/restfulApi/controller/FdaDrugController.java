@@ -17,7 +17,7 @@ public class FdaDrugController {
     private final FdaApiService fdaApiService;
 
     @GetMapping(path = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<String> searchDrug(@RequestParam(required = false) String manufacturer,
+    public Mono<String> searchDrug(@RequestParam String manufacturer,
                                    @RequestParam(required = false) String name,
                                    @RequestParam(defaultValue = "5") int limit,
                                    @RequestParam(defaultValue = "1") int page) {

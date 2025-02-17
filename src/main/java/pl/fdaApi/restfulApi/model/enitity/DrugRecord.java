@@ -1,11 +1,13 @@
 package pl.fdaApi.restfulApi.model.enitity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
-
-import java.util.List;
 
 
 @Entity
@@ -18,18 +20,23 @@ import java.util.List;
 public class DrugRecord {
     @Id
     @Column(name = "application_number")
-    @NotBlank(message = "Application number was not provided")
+    @NotNull(message = "Application number was not provided")
+    @NotBlank(message = "Application number empty")
     private String applicationNumber;
 
     @Column(name = "manufacturer_name")
-    @NotBlank(message =  "Manufacturer name was not provided")
+    @NotNull(message = "Manufacturer name was not provided")
+    @NotBlank(message = "Manufacturer field empty")
     private String manufacturerName;
 
     @Column(name = "substance_name")
-    @NotBlank(message = "Substance name was not provided")
+    @NotNull(message = "Substance name was not provided")
+    @NotBlank(message = "Substance name missing")
     private String substanceName;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "drugRecord", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductNumber> productNumbers;
+    @Column(name = "product_number")
+    @NotNull(message = "Product numbers was not provided")
+    @NotBlank(message = "Product number missing")
+    @Pattern(regexp = "^[0-9]{3,}")
+    private String productNumber;
 }

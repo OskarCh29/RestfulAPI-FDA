@@ -1,34 +1,31 @@
 package pl.fdaApi.restfulApi.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import pl.fdaApi.restfulApi.exception.BadRequestException;
-import pl.fdaApi.restfulApi.repository.DrugRecordRepository;
+import pl.fdaApi.restfulApi.exception.ExternalException;
 import reactor.core.publisher.Mono;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class FdaApiService {
     private final WebClient webClient;
-    private final DrugRecordRepository drugRecordRepository;
 
     public Mono<String> searchDrug(String manufacturer, String name, int limit, int page) {
-        List<String> searchFields = new ArrayList<>();
-
-        if (manufacturer != null && !manufacturer.trim().isEmpty()) {
-            searchFields.add("openfda.manufacturer_name:\"" + manufacturer.trim() + "\"");
+        if (manufacturer == null || manufacturer.trim().isEmpty()) {
+            throw new BadRequestException("Manufacturer field is required");
         }
+        String query = "openfda.manufacturer_name:\"" + manufacturer.trim() + "\"";
         if (name != null && !name.trim().isEmpty()) {
-            searchFields.add("products.brand_name:\"" + name.trim() + "\"");
+            query += "+AND+" + "products.brand_name:\"" + name.trim() + "\"";
         }
-        if (searchFields.isEmpty()) {
-            throw new BadRequestException("Missing manufacturer or brand name parameter");
+        if (limit < 1 || page < 1) {
+            throw new BadRequestException("limit or page parameter must be 1 or greater");
         }
-        String finalQuery = String.join("+AND", searchFields);
+        String finalQuery = query;
+        System.out.println(finalQuery);
         int skipPage = (page - 1) * limit;
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
@@ -37,6 +34,8 @@ public class FdaApiService {
                         .queryParam("skip", skipPage)
                         .build())
                 .retrieve()
+                .onStatus(HttpStatusCode::isError, clientResponse ->
+                        Mono.error(new ExternalException("No matches found. Check your request")))
                 .bodyToMono(String.class);
     }
 

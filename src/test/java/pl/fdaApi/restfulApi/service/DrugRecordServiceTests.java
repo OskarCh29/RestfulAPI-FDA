@@ -3,85 +3,113 @@ package pl.fdaApi.restfulApi.service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
+import pl.fdaApi.restfulApi.exception.RecordNotFoundException;
 import pl.fdaApi.restfulApi.model.enitity.DrugRecord;
-import pl.fdaApi.restfulApi.model.enitity.ProductNumber;
 import pl.fdaApi.restfulApi.repository.DrugRecordRepository;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
 
 
-@SpringBootTest(classes = DrugRecordService.class)
+@SpringBootTest
 class DrugRecordServiceTests {
-
-    @Autowired
-    private DrugRecordRepository drugRecordRepository;
 
     @Autowired
     private DrugRecordService drugRecordService;
 
+    @Autowired
+    private DrugRecordRepository drugRecordRepository;
+
+
+    @BeforeEach
+    public void setUpTest() {
+        drugRecordRepository.deleteAll();
+    }
+
     @Test
-    void loadContext(){
+    void saveDrugRecord() {
+        DrugRecord drugRecord = initTestRecord();
+
+        DrugRecord savedRecord = drugRecordService.saveDrugRecord(drugRecord);
+
+        assertNotNull(savedRecord, "Record should not be null");
+        assertEquals(drugRecord.getApplicationNumber(), savedRecord.getApplicationNumber());
+        assertEquals(drugRecord.getManufacturerName(), savedRecord.getManufacturerName());
+        assertEquals(drugRecord.getSubstanceName(), savedRecord.getSubstanceName());
+        assertEquals(drugRecord.getProductNumber(), savedRecord.getProductNumber());
 
     }
 
-//    @BeforeEach
-//    public void setUpTest() {
-//        drugRecordRepository.deleteAll();
-//    }
-//
-//    //    @Test
-//    void SaveDrugRecord(){
-//
-//    }
-//    @Test
-//    void findDrugRecordById() {
-//        DrugRecord drugRecord = initTestRecord();
-//
-//        DrugRecord foundRecord = drugRecordService.findDrugRecordById(drugRecord.getApplicationNumber());
-//
-//        assertNotNull(foundRecord, "Found record should not be null");
-//        assertEquals(drugRecord.getApplicationNumber(), foundRecord.getApplicationNumber());
-//        assertEquals(drugRecord.getManufacturerName(), foundRecord.getManufacturerName());
-//        assertEquals(drugRecord.getSubstanceName(), foundRecord.getSubstanceName());
-//        assertIterableEquals(drugRecord.getProductNumbers(), foundRecord.getProductNumbers());
-//    }
-//    @Test
-//    void findDrugRecordById_NotFound(){
-//
-//    }
-//    @Test
-//    void getAllRecords(){
-//
-//    }
-//    @Test
-//    void getAllRecord_noRecordsStored(){
-//
-//    }
-//    @Test
-//    void deleteById(){
-//
-//    }
-//    @Test
-//    void deleteById_recordNotFound(){
-//
-//    }
-//    @Test
-//    void checkIfRecordComplete(){
-//
-//    }
+    @Test
+    void findDrugRecordById() {
+        DrugRecord drugRecord = initTestRecord();
 
-//    private DrugRecord initTestRecord() {
-//        DrugRecord testRecord = new DrugRecord();
-//        testRecord.setApplicationNumber("12345");
-//        testRecord.setManufacturerName("TestManufacturer");
-//        testRecord.setSubstanceName("TestSubstance");
-//        ProductNumber testNumber = new ProductNumber();
-//        testNumber.setProductNumber("P123");
-//        testNumber.setDrugRecord(testRecord);
-//        return drugRecordRepository.save(testRecord);
-//    }
+        DrugRecord foundRecord = drugRecordService.findDrugRecordById(drugRecord.getApplicationNumber());
 
+        assertNotNull(foundRecord, "Found record should not be null");
+        assertEquals(drugRecord.getApplicationNumber(), foundRecord.getApplicationNumber());
+        assertEquals(drugRecord.getManufacturerName(), foundRecord.getManufacturerName());
+        assertEquals(drugRecord.getSubstanceName(), foundRecord.getSubstanceName());
+        assertEquals(drugRecord.getProductNumber(), foundRecord.getProductNumber());
+    }
+
+    @Test
+    void findDrugRecordById_NotFound() {
+        assertThrows(RecordNotFoundException.class, () -> {
+            drugRecordService.findDrugRecordById(anyString());
+        }, "DataBase empty so any record should be found");
+
+    }
+
+    @Test
+    void getAllRecords() {
+        DrugRecord drugRecord = initTestRecord();
+
+        List<DrugRecord> records = drugRecordService.getAllDrugsRecord();
+
+        assertNotNull(records, "Should not be null. One record exists");
+        assertEquals(1, records.size(), "Should have one record");
+
+        assertEquals(drugRecord.getApplicationNumber(), records.getFirst().getApplicationNumber());
+        assertEquals(drugRecord.getManufacturerName(), records.getFirst().getManufacturerName());
+        assertEquals(drugRecord.getSubstanceName(), records.getFirst().getSubstanceName());
+    }
+
+    @Test
+    void getAllRecord_noRecordsStored() {
+        assertThrows(RecordNotFoundException.class, () -> {
+            drugRecordService.getAllDrugsRecord();
+        }, "No records stored. Should throw exception");
+    }
+
+    @Test
+    void deleteById() {
+        DrugRecord drugRecord = initTestRecord();
+
+        drugRecordService.deleteDrugRecord(drugRecord.getApplicationNumber());
+
+        Optional<DrugRecord> deletedRecord = drugRecordRepository.findById(drugRecord.getApplicationNumber());
+        assertTrue(deletedRecord.isEmpty(), "Record should not be found");
+    }
+
+    @Test
+    void deleteById_recordNotFound() {
+        assertThrows(RecordNotFoundException.class, () -> {
+            drugRecordService.deleteDrugRecord("NotExistingNumber");
+        }, "Should throw exception. Cannot delete something that does not exist");
+    }
+
+    private DrugRecord initTestRecord() {
+        DrugRecord testRecord = new DrugRecord();
+        testRecord.setApplicationNumber("12345");
+        testRecord.setManufacturerName("TestManufacturer");
+        testRecord.setSubstanceName("TestSubstance");
+        testRecord.setProductNumber("001");
+
+        return drugRecordRepository.save(testRecord);
+    }
 }
