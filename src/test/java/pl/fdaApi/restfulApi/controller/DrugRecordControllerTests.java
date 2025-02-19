@@ -49,9 +49,8 @@ public class DrugRecordControllerTests {
     @Test
     void getDrugRecord_notFound() throws Exception {
         String applicationNumber = "123";
-
-        doThrow(new RecordNotFoundException("Record not found"))
-                .when(drugRecordService).findDrugRecordById(anyString());
+        when(drugRecordService.findDrugRecordById(anyString()))
+                .thenThrow(new RecordNotFoundException("Record not found"));
 
         mockMvc.perform(get("/drug/{applicationNumber}", applicationNumber)
                         .contentType(MediaType.APPLICATION_JSON))
