@@ -22,6 +22,5 @@ spring:
   h2:
     console:
       enabled: true
-
 apiAddress:
   baseUrl: https://api.fda.gov/drug/drugsfda.json

@@ -14,7 +14,7 @@ public class FdaApiService {
     private final WebClient webClient;
 
     public Mono<String> searchDrug(String manufacturer, String name, int limit, int page) {
-        if (manufacturer == null || manufacturer.trim().isEmpty()) {
+        if (manufacturer.trim().isEmpty()) {
             throw new BadRequestException("Manufacturer field is required");
         }
         String query = "openfda.manufacturer_name:\"" + manufacturer.trim() + "\"";
@@ -25,7 +25,6 @@ public class FdaApiService {
             throw new BadRequestException("limit or page parameter must be 1 or greater");
         }
         String finalQuery = query;
-        System.out.println(finalQuery);
         int skipPage = (page - 1) * limit;
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 
 
 @SpringBootTest
@@ -59,8 +58,9 @@ class DrugRecordServiceTests {
 
     @Test
     void findDrugRecordById_NotFound() {
+        String nonExistingId = "WrongApplicationId";
         assertThrows(RecordNotFoundException.class, () -> {
-            drugRecordService.findDrugRecordById(anyString());
+            drugRecordService.findDrugRecordById(nonExistingId);
         }, "DataBase empty so any record should be found");
 
     }
