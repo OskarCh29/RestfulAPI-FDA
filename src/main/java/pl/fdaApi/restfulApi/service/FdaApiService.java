@@ -37,5 +37,4 @@ public class FdaApiService {
                         Mono.error(new ExternalException("No matches found. Check your request")))
                 .bodyToMono(String.class);
     }
-
 }
