@@ -2,10 +2,8 @@ package pl.fdaApi.restfulApi.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import pl.fdaApi.restfulApi.model.enitity.DrugRecord;
 import pl.fdaApi.restfulApi.model.response.GenericResponse;
@@ -18,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DrugRecordController {
     private final DrugRecordService drugRecordService;
-
 
     @GetMapping("/{applicationNumber}")
     public ResponseEntity<DrugRecord> getDrugRecord(@Valid @PathVariable String applicationNumber) {
