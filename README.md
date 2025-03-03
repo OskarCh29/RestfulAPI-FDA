@@ -50,27 +50,9 @@ Where:
 
 Please be informed that after providing requested fields add `&` to query next param
 
-### CRUD FUNCTIONALITY
-App provides the access to store drugs data in the local database via all RESTful endpoints:  
-`GET` - Without any param provides a list of all drugs records stored in the database  
-`GET/{applicationNumber}` - By providing application number (basic field for any Drug Record) you can search record by application number  
-`POST` - Save drug record entity to database (example of record would be shown next)  
-`DELETE/{applicationNumber}` - Deletes drug record by provided number
-
-### Drug Record as stored record
-`applicationNumber` - Basic field for each record.Works as ID. Column name: **application_number**  
-`manufacturerName` - Name of the manufacturer. Column name: **manufacturer_name**  
-`substanceName` - Name of the substance. Column name: **substance_name**  
-`productNumber` -  Product number. If more than one separate by `,`.Column name: **product_number** 
-
-### Example of POST query
-
-**{  
-"applicationNumber": "123123",  
-"manufacturerName":"Manufacturer",  
-"substanceName":"Vitamin-C",  
-"productNumber":"11132"  
-}**
+### Documentation
+Documentation for endpoints of the api provided on the Swagger.
+`http://localhost:8080/swagger-ui/index.html`
 
 ## Testing
 Just enter the following command in your app directory via terminal.

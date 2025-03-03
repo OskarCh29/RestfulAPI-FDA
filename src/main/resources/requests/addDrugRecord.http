@@ -1,0 +1,8 @@
+POST http://localhost:8080/drug
+Content-Type:application/json
+{
+"applicationNumber": "123123",
+"manufacturerName":"Manufacturer",
+"substanceName":"Vitamin-C",
+"productNumber":"11132"
+}
