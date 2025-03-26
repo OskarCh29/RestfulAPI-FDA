@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulapi.controller;
+package pl.fda.restfulapi.controller;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.AfterAll;

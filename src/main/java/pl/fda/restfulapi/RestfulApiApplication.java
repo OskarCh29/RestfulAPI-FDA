@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulapi;
+package pl.fda.restfulapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

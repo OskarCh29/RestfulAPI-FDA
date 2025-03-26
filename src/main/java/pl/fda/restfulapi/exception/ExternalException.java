@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulapi.exception;
+package pl.fda.restfulapi.exception;
 
 public class ExternalException extends RuntimeException {
     public ExternalException(String message) {

@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulapi.controller;
+package pl.fda.restfulapi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -9,9 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.fdaApi.restfulapi.exception.RecordNotFoundException;
-import pl.fdaApi.restfulapi.model.enitity.DrugRecord;
-import pl.fdaApi.restfulapi.service.DrugRecordService;
+import pl.fda.restfulapi.exception.RecordNotFoundException;
+import pl.fda.restfulapi.model.enitity.DrugRecord;
+import pl.fda.restfulapi.service.DrugRecordService;
 
 import java.util.List;
 

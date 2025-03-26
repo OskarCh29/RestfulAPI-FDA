@@ -1,12 +1,12 @@
-package pl.fdaApi.restfulapi.service;
+package pl.fda.restfulapi.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.fdaApi.restfulapi.exception.RecordNotFoundException;
-import pl.fdaApi.restfulapi.model.enitity.DrugRecord;
-import pl.fdaApi.restfulapi.repository.DrugRecordRepository;
+import pl.fda.restfulapi.exception.RecordNotFoundException;
+import pl.fda.restfulapi.model.enitity.DrugRecord;
+import pl.fda.restfulapi.repository.DrugRecordRepository;
 
 import java.util.List;
 import java.util.Optional;

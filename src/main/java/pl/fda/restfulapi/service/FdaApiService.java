@@ -1,11 +1,11 @@
-package pl.fdaApi.restfulapi.service;
+package pl.fda.restfulapi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import pl.fdaApi.restfulapi.exception.BadRequestException;
-import pl.fdaApi.restfulapi.exception.ExternalException;
+import pl.fda.restfulapi.exception.BadRequestException;
+import pl.fda.restfulapi.exception.ExternalException;
 import reactor.core.publisher.Mono;
 
 @Service

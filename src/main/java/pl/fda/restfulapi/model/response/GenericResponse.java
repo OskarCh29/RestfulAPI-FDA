@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulapi.model.response;
+package pl.fda.restfulapi.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
