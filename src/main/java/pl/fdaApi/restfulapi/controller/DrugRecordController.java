@@ -1,13 +1,13 @@
-package pl.fdaApi.restfulApi.controller;
+package pl.fdaApi.restfulapi.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.fdaApi.restfulApi.model.enitity.DrugRecord;
-import pl.fdaApi.restfulApi.model.response.GenericResponse;
-import pl.fdaApi.restfulApi.service.DrugRecordService;
+import pl.fdaApi.restfulapi.model.enitity.DrugRecord;
+import pl.fdaApi.restfulapi.model.response.GenericResponse;
+import pl.fdaApi.restfulapi.service.DrugRecordService;
 
 import java.util.List;
 

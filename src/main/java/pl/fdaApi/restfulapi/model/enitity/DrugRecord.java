@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulApi.model.enitity;
+package pl.fdaApi.restfulapi.model.enitity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

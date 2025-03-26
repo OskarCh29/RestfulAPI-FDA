@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulApi.controller;
+package pl.fdaApi.restfulapi.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.fdaApi.restfulApi.service.FdaApiService;
+import pl.fdaApi.restfulapi.service.FdaApiService;
 import reactor.core.publisher.Mono;
 
 @RestController

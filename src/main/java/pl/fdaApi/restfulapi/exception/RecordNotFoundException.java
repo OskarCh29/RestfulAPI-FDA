@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulApi.exception;
+package pl.fdaApi.restfulapi.exception;
 
 public class RecordNotFoundException extends RuntimeException {
     public RecordNotFoundException(String message) {

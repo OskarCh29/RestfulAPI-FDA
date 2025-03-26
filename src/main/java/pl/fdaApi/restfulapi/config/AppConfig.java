@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulApi.config;
+package pl.fdaApi.restfulapi.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,10 +1,10 @@
-package pl.fdaApi.restfulApi.service;
+package pl.fdaApi.restfulapi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.fdaApi.restfulApi.exception.RecordNotFoundException;
-import pl.fdaApi.restfulApi.model.enitity.DrugRecord;
-import pl.fdaApi.restfulApi.repository.DrugRecordRepository;
+import pl.fdaApi.restfulapi.exception.RecordNotFoundException;
+import pl.fdaApi.restfulapi.model.enitity.DrugRecord;
+import pl.fdaApi.restfulapi.repository.DrugRecordRepository;
 
 import java.util.List;
 

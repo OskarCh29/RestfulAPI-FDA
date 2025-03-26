@@ -1,4 +1,4 @@
-package pl.fdaApi.restfulApi.exception;
+package pl.fdaApi.restfulapi.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
